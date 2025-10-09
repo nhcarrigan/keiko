@@ -10,26 +10,26 @@ import { logger } from "../utils/logger.js";
 const html = `<!DOCTYPE html>
 <html>
   <head>
-    <title>Maylin Taryne</title>
+    <title>Keiko</title>
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1" />
-    <meta name="description" content="An AI powered companion to help you through your darkest moments." />
+    <meta name="description" content="Naomi's personal AI assistant." />
     <script src="https://cdn.nhcarrigan.com/headers/index.js" async defer></script>
   </head>
   <body>
     <main>
-    <h1>Maylin Taryne</h1>
-    <img src="https://cdn.nhcarrigan.com/new-avatars/maylin-full.png" width="250" alt="Maylin" />
+    <h1>Keiko</h1>
+    <img src="https://cdn.nhcarrigan.com/new-avatars/keiko-full.png" width="250" alt="Keiko" />
     <section>
-      <p>An AI powered companion to help you through your darkest moments.</p>
-      <a href="https://discord.com/oauth2/authorize?client_id=1343370633916059668" class="social-button discord-button" style="display: inline-block; background-color: #5865F2; color: white; padding: 10px 20px; text-decoration: none; border-radius: 4px; margin: 5px;">
-        <i class="fab fa-discord"></i> Add to Discord
+      <p>Naomi's personal AI assistant.</p>
+      <a href="https://chat.nhcarrigan.com" class="social-button discord-button" style="display: inline-block; background-color: #5865F2; color: white; padding: 10px 20px; text-decoration: none; border-radius: 4px; margin: 5px;">
+        <i class="fab fa-discord"></i> Join our Discord
       </a>
     </section>
     <section>
         <h2>Links</h2>
         <p>
-            <a href="https://git.nhcarrigan.com/nhcarrigan/maylin-taryne">
+            <a href="https://git.nhcarrigan.com/nhcarrigan/keiko">
                 <i class="fa-solid fa-code"></i> Source Code
             </a>
         </p>
@@ -62,12 +62,12 @@ export const instantiateServer = (): void => {
       response.send(html);
     });
 
-    server.listen({ port: 5011 }, (error) => {
+    server.listen({ port: 3333 }, (error) => {
       if (error) {
         void logger.error("instantiate server", error);
         return;
       }
-      void logger.log("debug", "Server listening on port 5011.");
+      void logger.log("debug", "Server listening on port 3333.");
     });
   } catch (error) {
     if (error instanceof Error) {
