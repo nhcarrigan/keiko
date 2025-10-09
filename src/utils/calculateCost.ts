@@ -22,9 +22,8 @@ export const calculateCost = (
     : 15) / 1_000_000);
   const totalCost = inputCost + outputCost;
   return `-# Accepted ${usage.input_tokens.toString()} and generated ${usage.output_tokens.toString()}.
-    
-    -# Total cost: ${totalCost.toLocaleString("en-GB", {
-      currency: "USD",
-      style:    "currency",
-    })}`;
+-# Total cost: ${totalCost.toLocaleString("en-GB", {
+  currency: "USD",
+  style:    "currency",
+})}`;
 };
