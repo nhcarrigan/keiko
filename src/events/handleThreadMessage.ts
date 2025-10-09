@@ -7,6 +7,7 @@ import {
   ActionRowBuilder,
   ButtonBuilder,
   ButtonStyle,
+  type AnyThreadChannel,
   type Message,
 } from "discord.js";
 import { personality } from "../config/personality.js";
@@ -21,20 +22,16 @@ import type { MessageParam } from "@anthropic-ai/sdk/resources/index.js";
  * @param message - The message payload from Discord.
  */
 export const handleThreadMessage
-// eslint-disable-next-line max-lines-per-function, complexity, max-statements -- We're off by one bloody line.
+// eslint-disable-next-line max-lines-per-function, max-statements -- We're off by one bloody line.
 = async(message: Message<true>): Promise<void> => {
   try {
+    // @ts-expect-error -- This is a workaround to get the channel type.
+    const channel: AnyThreadChannel = message.channel;
     if (message.author.bot) {
       return;
     }
-    const starter = await message.thread?.fetchStarterMessage();
-    const mentionsKeiko = starter?.mentions.has("1425897287065800785", {
-      ignoreDirect:      false,
-      ignoreEveryone:    true,
-      ignoreRepliedUser: true,
-      ignoreRoles:       true,
-    });
-    if (mentionsKeiko !== true) {
+    const owner = await channel.fetchOwner();
+    if (owner?.id !== "1425897287065800785") {
       return;
     }
     const isNaomi = await isNaomiMessage(message);
