@@ -19,8 +19,7 @@ import { logger } from "../utils/logger.js";
  * Handles a direct message from a user.
  * @param message - The message payload from Discord.
  */
-export const handleThreadMessage
-
+export const handleGuildMessage
   // eslint-disable-next-line max-lines-per-function -- We're off by one bloody line.
   = async(message: Message<true>): Promise<void> => {
     try {
@@ -55,7 +54,10 @@ export const handleThreadMessage
 
       const cost = calculateCost(messages.usage);
 
-      await message.channel.send(
+      const thread = await message.startThread({
+        name: `${message.author.displayName}'s Thread`,
+      });
+      await thread.send(
         `${response?.text ?? "There was an error. Please try again later."}\n\n${cost}`,
       );
       await logger.metric("guild_message", 1, { cost });

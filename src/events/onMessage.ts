@@ -10,6 +10,7 @@ import {
   type OmitPartialGroupDMChannel,
 } from "discord.js";
 import { handleDmMessage } from "./handleDmMessage.js";
+import { handleGuildMessage } from "./handleGuildMessage.js";
 import { handleThreadMessage } from "./handleThreadMessage.js";
 
 /**
@@ -34,5 +35,5 @@ export const onMessage = async(
     await handleThreadMessage(message);
     return;
   }
-  void message;
+  await handleGuildMessage(message);
 };
