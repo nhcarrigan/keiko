@@ -21,6 +21,7 @@ import { logger } from "../utils/logger.js";
  */
 export const handleThreadMessage
 
+  // eslint-disable-next-line max-lines-per-function -- We're off by one bloody line.
   = async(message: Message<true>): Promise<void> => {
     try {
       if (message.author.bot) {
@@ -57,6 +58,7 @@ export const handleThreadMessage
       await message.channel.send(
         `${response?.text ?? "There was an error. Please try again later."}\n\n${cost}`,
       );
+      await logger.metric("guild_message", 1, { cost });
     } catch (error) {
       await logger.error("message event", error instanceof Error
         ? error

@@ -3,6 +3,7 @@
  * @license Naomi's Public License
  * @author Naomi Carrigan
  */
+import { DiscordAnalytics } from "@nhcarrigan/discord-analytics";
 import {
   Client,
   Events,
@@ -39,6 +40,8 @@ const client = new Client({
   partials: [ Partials.Channel ],
 });
 
+const analytics = new DiscordAnalytics(client, logger);
+
 client.on(Events.InteractionCreate, (interaction) => {
   if (interaction.isChatInputCommand()) {
     switch (interaction.commandName) {
@@ -72,6 +75,7 @@ client.on(Events.EntitlementDelete, (entitlement) => {
 
 client.on(Events.ClientReady, () => {
   void logger.log("debug", "Bot is ready.");
+  analytics.startCron();
 });
 
 instantiateServer();

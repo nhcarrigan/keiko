@@ -22,7 +22,7 @@ import type { MessageParam } from "@anthropic-ai/sdk/resources/index.js";
  * @param message - The message payload from Discord.
  */
 export const handleDmMessage
-// eslint-disable-next-line max-lines-per-function -- We're off by one bloody line.
+// eslint-disable-next-line max-lines-per-function, max-statements -- We're off by one bloody line.
   = async(message: OmitPartialGroupDMChannel<Message>): Promise<void> => {
     try {
       if (message.author.bot) {
@@ -74,6 +74,7 @@ export const handleDmMessage
       await message.channel.send(
         `${response?.text ?? "There was an error. Please try again later."}\n\n${cost}`,
       );
+      await logger.metric("dm_message", 1, { cost });
     } catch (error) {
       await logger.error("message event", error instanceof Error
         ? error
