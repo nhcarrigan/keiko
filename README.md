@@ -1,24 +1,14 @@
-# New Repository Template
+# Maylin Taryne
 
-This template contains all of our basic files for a new GitHub repository. There is also a handy workflow that will create an issue on a new repository made from this template, with a checklist for the steps we usually take in setting up a new repository.
-
-If you're starting a Node.JS project with TypeScript, we have a [specific template](https://github.com/naomi-lgbt/nodejs-typescript-template) for that purpose.
-
-## Readme
-
-Delete all of the above text (including this line), and uncomment the below text to use our standard readme template.
-
-<!-- # Project Name
-
-Project Description
+Maylin is a user-installable bot that offers companionship and comfort during your toughest moments.
 
 ## Live Version
 
-This page is currently deployed. [View the live website.]
+[Add her to your account](https://discord.com/oauth2/authorize?client_id=1343370633916059668)!
 
 ## Feedback and Bugs
 
-If you have feedback or a bug report, please feel free to open a GitHub issue!
+If you have feedback or a bug report, please feel free to open an issue!
 
 ## Contributing
 
