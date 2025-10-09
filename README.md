@@ -1,10 +1,10 @@
-# Maylin Taryne
+# Keiko
 
-Maylin is a user-installable bot that offers companionship and comfort during your toughest moments.
+Keiko is a private bot that serves as Naomi's dedicated AI assistant.
 
 ## Live Version
 
-[Add her to your account](https://discord.com/oauth2/authorize?client_id=1343370633916059668)!
+[See her in our community](https://chat.nhcarrigan.com)!
 
 ## Feedback and Bugs
 

@@ -7,6 +7,6 @@
 import { Logger } from "@nhcarrigan/logger";
 
 export const logger = new Logger(
-  "Maylin Taryne",
+  "Keiko",
   process.env.LOG_TOKEN ?? "",
 );
