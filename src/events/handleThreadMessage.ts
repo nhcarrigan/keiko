@@ -27,9 +27,14 @@ export const handleThreadMessage
     if (message.author.bot) {
       return;
     }
-    const owner = await message.thread?.fetchOwner();
-    // We only respond in threads created by Keiko.
-    if (owner?.id !== "1425897287065800785") {
+    const starter = await message.thread?.fetchStarterMessage();
+    const mentionsKeiko = starter?.mentions.has("1425897287065800785", {
+      ignoreDirect:      false,
+      ignoreEveryone:    true,
+      ignoreRepliedUser: true,
+      ignoreRoles:       true,
+    });
+    if (mentionsKeiko !== true) {
       return;
     }
     const isNaomi = await isNaomiMessage(message);
