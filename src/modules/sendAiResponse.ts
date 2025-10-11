@@ -19,9 +19,17 @@ export const sendAiResponse = async(
   send: GuildTextBasedChannel["send"] | DMChannel["send"] | Message["reply"],
   type: GuildTextBasedChannel["sendTyping"],
 ): Promise<void> => {
-  for (const line of content) {
-    await send(line);
-    await type();
-    await sleep(2500);
+  const joined = content.join("\n\n");
+  if (joined.length < 4000) {
+    await send(joined);
+    return;
+  }
+  const chunks = joined.match(/[\S\s]{1,4000}/g);
+  if (chunks) {
+    for (const chunk of chunks) {
+      await send(chunk);
+      await type();
+      await sleep(2500);
+    }
   }
 };
