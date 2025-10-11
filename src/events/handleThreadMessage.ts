@@ -10,8 +10,8 @@ import {
   type AnyThreadChannel,
   type Message,
 } from "discord.js";
-import { personality } from "../config/personality.js";
-import { ai } from "../utils/ai.js";
+import { makeAiRequest } from "../modules/makeAiRequest.js";
+import { sendAiResponse } from "../modules/sendAiResponse.js";
 import { calculateCost } from "../utils/calculateCost.js";
 import { isNaomiMessage } from "../utils/isNaomi.js";
 import { logger } from "../utils/logger.js";
@@ -38,6 +38,7 @@ export const handleThreadMessage
     if (!isNaomi) {
       return;
     }
+    await channel.sendTyping();
     const historyRequest = await message.channel.messages.fetch({ limit: 20 });
     const history = [ ...historyRequest.values() ];
     const context: Array<MessageParam> = history.
@@ -51,23 +52,16 @@ export const handleThreadMessage
                 : "user",
         };
       });
-    const messages = await ai.messages.create({
-      // eslint-disable-next-line @typescript-eslint/naming-convention -- Required key format for SDK.
-      max_tokens:  3000,
-      messages:    context,
-      model:       "claude-sonnet-4-5-20250929",
-      system:      `${personality} The user's name is ${message.author.displayName}`,
-      temperature: 1,
-    });
+    const { content, usage } = await makeAiRequest(
+      context,
+      message.author.displayName,
+    );
+    const cost = calculateCost(usage);
 
-    const response = messages.content.find((messageInner) => {
-      return messageInner.type === "text";
-    });
-
-    const cost = calculateCost(messages.usage);
-
-    await message.channel.send(
-      `${response?.text ?? "There was an error. Please try again later."}\n\n${cost}`,
+    await sendAiResponse(
+      [ ...content, cost ],
+      message.channel.send.bind(message.channel),
+      message.channel.sendTyping.bind(message.channel),
     );
     await logger.metric("thread_message", 1, { cost });
   } catch (error) {

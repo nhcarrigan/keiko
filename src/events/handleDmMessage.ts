@@ -10,8 +10,8 @@ import {
   type Message,
   type OmitPartialGroupDMChannel,
 } from "discord.js";
-import { personality } from "../config/personality.js";
-import { ai } from "../utils/ai.js";
+import { makeAiRequest } from "../modules/makeAiRequest.js";
+import { sendAiResponse } from "../modules/sendAiResponse.js";
 import { calculateCost } from "../utils/calculateCost.js";
 import { isNaomiMessage } from "../utils/isNaomi.js";
 import { logger } from "../utils/logger.js";
@@ -22,7 +22,7 @@ import type { MessageParam } from "@anthropic-ai/sdk/resources/index.js";
  * @param message - The message payload from Discord.
  */
 export const handleDmMessage
-// eslint-disable-next-line max-lines-per-function, max-statements -- We're off by one bloody line.
+  // eslint-disable-next-line max-lines-per-function, max-statements -- We're off by one bloody line.
   = async(message: OmitPartialGroupDMChannel<Message>): Promise<void> => {
     try {
       if (message.author.bot) {
@@ -32,17 +32,19 @@ export const handleDmMessage
       if (!isNaomi) {
         return;
       }
-      const historyRequest
-      = await message.channel.messages.fetch({ limit: 20 });
+      await message.channel.sendTyping();
+      const historyRequest = await message.channel.messages.fetch({
+        limit: 20,
+      });
       const history = [ ...historyRequest.values() ];
       const clearMessageIndex = history.findIndex((messageInner) => {
         return (
           messageInner.content === "<Clear History>"
-        && messageInner.author.id === message.client.user.id
+          && messageInner.author.id === message.client.user.id
         );
       });
       if (clearMessageIndex !== -1) {
-      // Remove the clear message and everything sent before it, which means everything after in the array because the array is backwards
+        // Remove the clear message and everything sent before it, which means everything after in the array because the array is backwards
         history.splice(clearMessageIndex, history.length - clearMessageIndex);
       }
       const context: Array<MessageParam> = history.
@@ -51,34 +53,30 @@ export const handleDmMessage
           return {
             content: messageInner.content,
             role:
-            messageInner.author.id === message.client.user.id
-              ? "assistant"
-              : "user",
+              messageInner.author.id === message.client.user.id
+                ? "assistant"
+                : "user",
           };
         });
-      const messages = await ai.messages.create({
-      // eslint-disable-next-line @typescript-eslint/naming-convention -- Required key format for SDK.
-        max_tokens:  3000,
-        messages:    context,
-        model:       "claude-sonnet-4-5-20250929",
-        system:      `${personality} The user's name is ${message.author.displayName}`,
-        temperature: 1,
-      });
+      const { content, usage } = await makeAiRequest(
+        context,
+        message.author.displayName,
+      );
+      const cost = calculateCost(usage);
 
-      const response = messages.content.find((messageInner) => {
-        return messageInner.type === "text";
-      });
-
-      const cost = calculateCost(messages.usage);
-
-      await message.channel.send(
-        `${response?.text ?? "There was an error. Please try again later."}\n\n${cost}`,
+      await sendAiResponse(
+        [ ...content, cost ],
+        message.channel.send.bind(message.channel),
+        message.channel.sendTyping.bind(message.channel),
       );
       await logger.metric("dm_message", 1, { cost });
     } catch (error) {
-      await logger.error("message event", error instanceof Error
-        ? error
-        : new Error(String(error)));
+      await logger.error(
+        "message event",
+        error instanceof Error
+          ? error
+          : new Error(String(error)),
+      );
       const button = new ButtonBuilder().
         setLabel("Need help?").
         setStyle(ButtonStyle.Link).
@@ -86,9 +84,10 @@ export const handleDmMessage
       const row = new ActionRowBuilder<ButtonBuilder>().addComponents(button);
       await message.reply({
         components: [ row ],
-        content:    error instanceof Error
-          ? error.message
-          : "Something went wrong.",
+        content:
+          error instanceof Error
+            ? error.message
+            : "Something went wrong.",
       });
     }
   };

@@ -9,8 +9,8 @@ import {
   ButtonStyle,
   type Message,
 } from "discord.js";
-import { personality } from "../config/personality.js";
-import { ai } from "../utils/ai.js";
+import { makeAiRequest } from "../modules/makeAiRequest.js";
+import { sendAiResponse } from "../modules/sendAiResponse.js";
 import { calculateCost } from "../utils/calculateCost.js";
 import { isNaomiMessage } from "../utils/isNaomi.js";
 import { logger } from "../utils/logger.js";
@@ -20,7 +20,7 @@ import { logger } from "../utils/logger.js";
  * @param message - The message payload from Discord.
  */
 export const handleGuildMessage
-  // eslint-disable-next-line max-lines-per-function -- We're off by one bloody line.
+
   = async(message: Message<true>): Promise<void> => {
     try {
       if (message.author.bot) {
@@ -39,26 +39,21 @@ export const handleGuildMessage
       if (!isNaomi) {
         return;
       }
-      const messages = await ai.messages.create({
-        // eslint-disable-next-line @typescript-eslint/naming-convention -- Required key format for SDK.
-        max_tokens:  3000,
-        messages:    [ { content: message.content, role: "user" } ],
-        model:       "claude-sonnet-4-5-20250929",
-        system:      `${personality} The user's name is ${message.author.displayName}`,
-        temperature: 1,
-      });
-
-      const response = messages.content.find((messageInner) => {
-        return messageInner.type === "text";
-      });
-
-      const cost = calculateCost(messages.usage);
-
       const thread = await message.startThread({
         name: `${message.author.displayName}'s Thread`,
       });
-      await thread.send(
-        `${response?.text ?? "There was an error. Please try again later."}\n\n${cost}`,
+      await thread.sendTyping();
+
+      const { content, usage } = await makeAiRequest(
+        [ { content: message.content, role: "user" } ],
+        message.author.displayName,
+      );
+      const cost = calculateCost(usage);
+
+      await sendAiResponse(
+        [ ...content, cost ],
+        thread.send.bind(thread),
+        thread.sendTyping.bind(thread),
       );
       await logger.metric("guild_message", 1, { cost });
     } catch (error) {
