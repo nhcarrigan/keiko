@@ -20,11 +20,11 @@ export const sendAiResponse = async(
   type: GuildTextBasedChannel["sendTyping"],
 ): Promise<void> => {
   const joined = content.join("\n\n");
-  if (joined.length < 4000) {
+  if (joined.length < 2000) {
     await send(joined);
     return;
   }
-  const chunks = joined.match(/[\S\s]{1,4000}/g);
+  const chunks = joined.match(/[\S\s]{1,2000}/g);
   if (chunks) {
     for (const chunk of chunks) {
       await send(chunk);
