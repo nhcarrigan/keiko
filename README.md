@@ -8,7 +8,7 @@ Keiko is a private bot that serves as Naomi's dedicated AI assistant.
 
 ## Feedback and Bugs
 
-If you have feedback or a bug report, please feel free to open an issue!
+If you have feedback or a bug report, please [log a ticket on our forum](https://support.nhcarrigan.com).
 
 ## Contributing
 
