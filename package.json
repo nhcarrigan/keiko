@@ -23,7 +23,7 @@
     "vitest": "3.2.4"
   },
   "dependencies": {
-    "@anthropic-ai/sdk": "0.72.1",
+    "@anthropic-ai/sdk": "0.73.0",
     "@nhcarrigan/discord-analytics": "0.0.6",
     "@nhcarrigan/logger": "1.1.1",
     "discord.js": "14.23.2",
