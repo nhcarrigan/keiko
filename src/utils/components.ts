@@ -114,7 +114,8 @@ const modLogMessage = (
   source: "Command" | "Audit Log",
 ): Record<string, unknown> => {
   return {
-    components: [
+    allowedMentions: { parse: [] },
+    components:      [
       buildContainer(
         "modAction",
         `## ${title}`,
@@ -139,8 +140,9 @@ const activityMessage = (
   fields: string,
 ): Record<string, unknown> => {
   return {
-    components: [ buildContainer("info", `## ${emoji} ${title}`, fields) ],
-    flags:      MessageFlags.IsComponentsV2,
+    allowedMentions: { parse: [] },
+    components:      [ buildContainer("info", `## ${emoji} ${title}`, fields) ],
+    flags:           MessageFlags.IsComponentsV2,
   };
 };
 
@@ -155,7 +157,8 @@ const memberMessage = (
   fields: string,
 ): Record<string, unknown> => {
   return {
-    components: [
+    allowedMentions: { parse: [] },
+    components:      [
       buildContainer(
         type === "join"
           ? "join"
