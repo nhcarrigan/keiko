@@ -3,13 +3,16 @@ import { defineConfig } from "vitest/config";
 export default defineConfig({
   test: {
     coverage: {
-      provider: "istanbul",
-      reporter: ["text", "html"],
-      all: true,
-      allowExternal: true,
+      provider: "v8",
+      include: ["src/**/*.ts"],
+      exclude: ["src/types/**/*.ts"],
       thresholds: {
-        lines: 0,
+        statements: 100,
+        branches: 100,
+        functions: 100,
+        lines: 100,
       },
     },
+    include: ["test/**/*.spec.ts"],
   },
 });

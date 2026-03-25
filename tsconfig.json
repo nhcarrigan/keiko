@@ -1,8 +1,8 @@
 {
     "extends": "@nhcarrigan/typescript-config",
     "compilerOptions": {
-        "rootDir": "./src",
-        "outDir": "./prod"
+        "outDir": "./prod",
+        "rootDir": "."
     },
-    "exclude": ["test/**/*.ts", "vitest.config.ts"]
+    "exclude": ["test/**/*.ts"]
 }
