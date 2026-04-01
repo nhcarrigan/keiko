@@ -103,6 +103,7 @@ const unmuteCommand: Command = {
 
     await logModerationAction(interaction.client, {
       action:         "Member Unmuted",
+      colour:         "unmute",
       emoji:          "🔊",
       moderatorTag:   interaction.user.username,
       reason:         reason,

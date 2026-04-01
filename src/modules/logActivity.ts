@@ -6,11 +6,12 @@
 
 import { ChannelType, type Client } from "discord.js";
 import { channelConfig } from "../config/channels.js";
-import { activityMessage } from "../utils/components.js";
+import { activityMessage, type ColourKey } from "../utils/components.js";
 import { logger } from "../utils/logger.js";
 
 interface ActivityData {
   readonly client: Client;
+  readonly colour: ColourKey;
   readonly emoji:  string;
   readonly fields: string;
   readonly title:  string;
@@ -35,7 +36,9 @@ const logActivity = async(data: ActivityData): Promise<void> => {
       return;
     }
 
-    await rawChannel.send(activityMessage(data.emoji, data.title, data.fields));
+    await rawChannel.send(
+      activityMessage(data.emoji, data.title, data.fields, data.colour),
+    );
   } catch (error) {
     await logger.error(
       "Failed to log activity",

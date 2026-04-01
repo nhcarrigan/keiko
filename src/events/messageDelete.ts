@@ -54,6 +54,7 @@ export const onMessageDelete = async(
 
     await logActivity({
       client: message.client,
+      colour: "messageDeleted",
       emoji:  "🗑️",
       fields: fields,
       title:  "Message Deleted",

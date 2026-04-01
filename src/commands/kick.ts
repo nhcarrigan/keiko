@@ -14,7 +14,11 @@ import {
 } from "discord.js";
 import { logModerationAction } from "../modules/logModAction.js";
 import { sendSanction } from "../modules/sendSanction.js";
-import { errorReply, successReply } from "../utils/components.js";
+import {
+  errorReply,
+  sanctionDmMessage,
+  successReply,
+} from "../utils/components.js";
 import { logger } from "../utils/logger.js";
 import type { Command } from "../interfaces/command.js";
 
@@ -98,7 +102,10 @@ const kickCommand: Command = {
 
     try {
       await target.send(
-        `You have been kicked from **${interaction.guild?.name ?? "the server"}**.\n**Reason:** ${reason}`,
+        sanctionDmMessage(
+          `You have been kicked from **${interaction.guild?.name ?? "the server"}**.\n**Reason:** ${reason}`,
+          "kick",
+        ),
       );
     } catch {
       // DMs may be closed; continue without failing the command.
@@ -125,6 +132,7 @@ const kickCommand: Command = {
 
     await logModerationAction(interaction.client, {
       action:         "Member Kicked",
+      colour:         "kick",
       emoji:          "👢",
       moderatorTag:   interaction.user.username,
       reason:         reason,

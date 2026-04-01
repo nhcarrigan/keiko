@@ -53,6 +53,7 @@ export const onMessageUpdate = async(
 
     await logActivity({
       client: newMessage.client,
+      colour: "messageEdited",
       emoji:  "✏️",
       fields: fields,
       title:  "Message Edited",

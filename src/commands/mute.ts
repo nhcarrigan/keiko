@@ -14,7 +14,11 @@ import {
 } from "discord.js";
 import { logModerationAction } from "../modules/logModAction.js";
 import { sendSanction } from "../modules/sendSanction.js";
-import { errorReply, successReply } from "../utils/components.js";
+import {
+  errorReply,
+  sanctionDmMessage,
+  successReply,
+} from "../utils/components.js";
 import { logger } from "../utils/logger.js";
 import type { Command } from "../interfaces/command.js";
 
@@ -155,7 +159,10 @@ const muteCommand: Command = {
 
     try {
       await target.send(
-        `You have been muted in **${interaction.guild?.name ?? "the server"}** for **${durationLabel}**.\n**Reason:** ${reason}`,
+        sanctionDmMessage(
+          `You have been muted in **${interaction.guild?.name ?? "the server"}** for **${durationLabel}**.\n**Reason:** ${reason}`,
+          "mute",
+        ),
       );
     } catch {
       // DMs may be closed; continue without failing the command.
@@ -163,6 +170,7 @@ const muteCommand: Command = {
 
     await logModerationAction(interaction.client, {
       action:         "Member Muted",
+      colour:         "mute",
       emoji:          "🔇",
       moderatorTag:   interaction.user.username,
       reason:         reason,

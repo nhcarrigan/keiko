@@ -84,6 +84,7 @@ const unbanCommand: Command = {
 
     await logModerationAction(interaction.client, {
       action:         "Member Unbanned",
+      colour:         "unban",
       emoji:          "🔓",
       moderatorTag:   interaction.user.username,
       reason:         reason,

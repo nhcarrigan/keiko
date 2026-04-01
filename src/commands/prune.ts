@@ -102,6 +102,7 @@ const pruneCommand: Command = {
 
     await logModerationAction(interaction.client, {
       action:         "Messages Pruned",
+      colour:         "prune",
       emoji:          "🗑️",
       moderatorTag:   interaction.user.username,
       reason:         `Bulk delete of ${deletedCount.toString()} messages in <#${rawChannel.id}>`,

@@ -14,7 +14,11 @@ import {
 } from "discord.js";
 import { logModerationAction } from "../modules/logModAction.js";
 import { sendSanction } from "../modules/sendSanction.js";
-import { errorReply, successReply } from "../utils/components.js";
+import {
+  errorReply,
+  sanctionDmMessage,
+  successReply,
+} from "../utils/components.js";
 import { logger } from "../utils/logger.js";
 import type { Command } from "../interfaces/command.js";
 
@@ -94,7 +98,10 @@ const softbanCommand: Command = {
 
       try {
         await target.send(
-          `You have been softbanned from **${interaction.guild?.name ?? "the server"}** (your recent messages have been removed).\n**Reason:** ${reason}`,
+          sanctionDmMessage(
+            `You have been softbanned from **${interaction.guild?.name ?? "the server"}** (your recent messages have been removed).\n**Reason:** ${reason}`,
+            "softban",
+          ),
         );
       } catch {
         // DMs may be closed; continue without failing the command.
@@ -130,6 +137,7 @@ const softbanCommand: Command = {
 
     await logModerationAction(interaction.client, {
       action:         "Member Softbanned",
+      colour:         "softban",
       emoji:          "🧹",
       moderatorTag:   interaction.user.username,
       reason:         reason,

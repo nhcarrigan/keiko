@@ -57,6 +57,7 @@ const handleManualUnban = async(
 
   await logModerationAction(client, {
     action:         "Member Unbanned",
+    colour:         "unban",
     emoji:          "🔓",
     moderatorTag:   moderatorTag,
     reason:         resolvedReason,
@@ -98,6 +99,7 @@ const handleManualBan = async(
 
   await logModerationAction(client, {
     action:         "Member Banned",
+    colour:         "ban",
     emoji:          "🔨",
     moderatorTag:   moderatorTag,
     reason:         resolvedReason,
@@ -139,6 +141,7 @@ const handleManualKick = async(
 
   await logModerationAction(client, {
     action:         "Member Kicked",
+    colour:         "kick",
     emoji:          "👢",
     moderatorTag:   moderatorTag,
     reason:         resolvedReason,
@@ -191,6 +194,7 @@ const handleManualTimeout = async(
 
   await logModerationAction(client, {
     action:         "Member Muted",
+    colour:         "mute",
     emoji:          "🔇",
     moderatorTag:   moderatorTag,
     reason:         resolvedReason,

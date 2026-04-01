@@ -24,6 +24,7 @@ export const onThreadDelete = async(
 
     await logActivity({
       client: thread.client,
+      colour: "threadDeleted",
       emoji:  "🗑️",
       fields: fields,
       title:  "Thread Deleted",

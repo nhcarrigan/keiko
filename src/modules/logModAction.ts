@@ -7,11 +7,12 @@
 
 import { ChannelType, type Client } from "discord.js";
 import { channelConfig } from "../config/channels.js";
-import { modLogMessage } from "../utils/components.js";
+import { modLogMessage, type ColourKey } from "../utils/components.js";
 import { logger } from "../utils/logger.js";
 
 interface ModuleActionData {
   readonly action:         string;
+  readonly colour:         ColourKey;
   readonly emoji:          string;
   readonly moderatorTag:   string;
   readonly reason:         string;
@@ -57,7 +58,7 @@ const logModerationAction = async(
       join("\n");
 
     await rawChannel.send(
-      modLogMessage(`${data.emoji} ${data.action}`, fields, data.source),
+      modLogMessage(`${data.emoji} ${data.action}`, fields, data.source, data.colour),
     );
   } catch (error) {
     await logger.error(

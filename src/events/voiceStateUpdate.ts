@@ -60,6 +60,7 @@ export const onVoiceStateUpdate = async(
 
     await logActivity({
       client: user.client,
+      colour: "voiceState",
       emoji:  "🔊",
       fields: fields,
       title:  "Voice State Update",

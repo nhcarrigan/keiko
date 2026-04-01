@@ -52,6 +52,7 @@ export const onThreadUpdate = async(
 
     await logActivity({
       client: newThread.client,
+      colour: "threadUpdated",
       emoji:  "🔄",
       fields: fields,
       title:  "Thread Updated",

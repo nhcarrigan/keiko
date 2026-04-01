@@ -14,7 +14,11 @@ import {
 } from "discord.js";
 import { logModerationAction } from "../modules/logModAction.js";
 import { sendSanction } from "../modules/sendSanction.js";
-import { errorReply, successReply } from "../utils/components.js";
+import {
+  errorReply,
+  sanctionDmMessage,
+  successReply,
+} from "../utils/components.js";
 import { logger } from "../utils/logger.js";
 import type { Command } from "../interfaces/command.js";
 
@@ -103,7 +107,10 @@ const banCommand: Command = {
 
       try {
         await target.send(
-          `You have been banned from **${interaction.guild?.name ?? "the server"}**.\n**Reason:** ${reason}`,
+          sanctionDmMessage(
+            `You have been banned from **${interaction.guild?.name ?? "the server"}**.\n**Reason:** ${reason}`,
+            "ban",
+          ),
         );
       } catch {
         // DMs may be closed; continue without failing the command.
@@ -134,6 +141,7 @@ const banCommand: Command = {
 
     await logModerationAction(interaction.client, {
       action:         "Member Banned",
+      colour:         "ban",
       emoji:          "🔨",
       moderatorTag:   interaction.user.username,
       reason:         reason,

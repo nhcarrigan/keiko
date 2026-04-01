@@ -27,6 +27,7 @@ export const onThreadCreate = async(
 
     await logActivity({
       client: thread.client,
+      colour: "threadCreated",
       emoji:  "🧵",
       fields: fields,
       title:  "Thread Created",

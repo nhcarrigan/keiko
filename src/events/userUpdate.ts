@@ -29,6 +29,7 @@ export const onUserUpdate = async(
     if (oldUser.username !== newUser.username) {
       await logActivity({
         client: newUser.client,
+        colour: "usernameChanged",
         emoji:  "✏️",
         fields: [
           `**User**: ${newUser.username} (\`${newUser.id}\`)`,
@@ -42,6 +43,7 @@ export const onUserUpdate = async(
     if (oldUser.globalName !== newUser.globalName) {
       await logActivity({
         client: newUser.client,
+        colour: "displayName",
         emoji:  "📛",
         fields: [
           `**User**: ${newUser.username} (\`${newUser.id}\`)`,
@@ -55,6 +57,7 @@ export const onUserUpdate = async(
     if (oldUser.avatar !== newUser.avatar) {
       await logActivity({
         client: newUser.client,
+        colour: "avatarChanged",
         emoji:  "🖼️",
         fields: [
           `**User**: ${newUser.username} (\`${newUser.id}\`)`,

@@ -41,6 +41,7 @@ export const onGuildMemberUpdate = async(
 
       await logActivity({
         client: newMember.client,
+        colour: "nicknameChange",
         emoji:  "📝",
         fields: [
           `**User**: ${username} (\`${userId}\`)`,
@@ -64,6 +65,7 @@ export const onGuildMemberUpdate = async(
 
       await logActivity({
         client: newMember.client,
+        colour: "rolesAdded",
         emoji:  "➕",
         fields: [
           `**User**: ${username} (\`${userId}\`)`,
@@ -86,6 +88,7 @@ export const onGuildMemberUpdate = async(
 
       await logActivity({
         client: newMember.client,
+        colour: "rolesRemoved",
         emoji:  "➖",
         fields: [
           `**User**: ${username} (\`${userId}\`)`,
@@ -98,6 +101,7 @@ export const onGuildMemberUpdate = async(
     if (oldMember.avatar !== newMember.avatar) {
       await logActivity({
         client: newMember.client,
+        colour: "serverAvatar",
         emoji:  "🖼️",
         fields: [
           `**User**: ${username} (\`${userId}\`)`,
