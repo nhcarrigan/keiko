@@ -48,7 +48,7 @@ Three configurable logging channels (set via environment/config):
 
 ## Sanction API Integration
 
-**Endpoint**: `POST https://hikari.nhcarrigan.com/sanction`
+**Endpoint**: `POST https://hikari.spellware.dev/sanction`
 **Auth**: `Authorization: {SANCTION_TOKEN}`
 
 **Payload**:

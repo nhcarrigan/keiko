@@ -10,13 +10,13 @@ body:
       label: Attestations
       description: "By checking the boxes below, I certify that:"
       options:
-        - label: "I have read and agree to the [Code of Conduct](https://docs.nhcarrigan.com/community/coc/)"
+        - label: "I have read and agree to the [Code of Conduct](https://docs.spellware.dev/community/coc/)"
           required: true
-        - label: "I have read and agree to the [Community Guidelines](https://docs.nhcarrigan.com/community/guide/)."
+        - label: "I have read and agree to the [Community Guidelines](https://docs.spellware.dev/community/guide/)."
           required: true
         - label: "I have confirmed that the issue I am opening is unique, and has not already been reported (whether closed or not)."
           required: true
-        - label: "I have reviewed the [Security Policy](https://docs.nhcarrigan.com/legal/security/) and have determined that this is not a security vulnerability."
+        - label: "I have reviewed the [Security Policy](https://docs.spellware.dev/legal/security/) and have determined that this is not a security vulnerability."
           required: true
   - type: textarea
     id: description

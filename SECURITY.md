@@ -1,3 +1,3 @@
 # Security Policy
 
-Our security policy can be found here: https://docs.nhcarrigan.com/#/security
+Our security policy can be found here: https://docs.spellware.dev/#/security

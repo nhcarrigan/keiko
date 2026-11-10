@@ -201,10 +201,10 @@ const memberMessage = (
 
 const sanctionLinks = [
   // eslint-disable-next-line stylistic/max-len -- URL cannot be shortened
-  "**Appeal this sanction:** https://forms.nhcarrigan.com/o/docs/forms/4w5VHsYiEkiS2mewvtuJYL/4",
-  "**View sanction logs:** https://hikari.nhcarrigan.com/sanctions",
-  "**Contact us:** https://docs.nhcarrigan.com/about/contact/",
-  "**Rejoin our community:** https://chat.nhcarrigan.com",
+  "**Appeal this sanction:** https://forms.spellware.dev/o/docs/forms/4w5VHsYiEkiS2mewvtuJYL/4",
+  "**View sanction logs:** https://hikari.spellware.dev/sanctions",
+  "**Contact us:** https://docs.spellware.dev/about/contact/",
+  "**Rejoin our community:** https://chat.spellware.dev",
 ].join("\n");
 
 /**

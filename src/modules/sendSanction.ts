@@ -29,7 +29,7 @@ const sendSanction = async(
   payload: SanctionPayload,
 ): Promise<number | null> => {
   try {
-    const response = await fetch("https://hikari.nhcarrigan.com/api/sanction", {
+    const response = await fetch("https://hikari.spellware.dev/api/sanction", {
       body:    JSON.stringify({ ...payload, platform: "discord" }),
       headers: {
         /* eslint-disable @typescript-eslint/naming-convention -- HTTP header names are not camelCase */

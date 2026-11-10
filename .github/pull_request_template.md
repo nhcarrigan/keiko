@@ -10,9 +10,9 @@ My pull request relates to or resolves the following issue number: #
 
 By checking the boxes below, I certify that:
 
-- [ ] I have read and agree to the [Code of Conduct](https://docs.nhcarrigan.com/community/coc/)
-- [ ] I have read and agree to the [Community Guidelines](https://docs.nhcarrigan.com/community/guide/).
-- [ ] My contribution complies with the [Contributor Covenant](https://docs.nhcarrigan.com/dev/covenant/).
+- [ ] I have read and agree to the [Code of Conduct](https://docs.spellware.dev/community/coc/)
+- [ ] I have read and agree to the [Community Guidelines](https://docs.spellware.dev/community/guide/).
+- [ ] My contribution complies with the [Contributor Covenant](https://docs.spellware.dev/dev/covenant/).
 
 ## Dependencies
 

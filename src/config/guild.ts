@@ -5,7 +5,7 @@
  */
 
 /**
- * Guild and application configuration for the NHCarrigan community server.
+ * Guild and application configuration for the SpellWare community server.
  */
 export const guildConfig = {
 
@@ -16,7 +16,7 @@ export const guildConfig = {
   clientId: "1425897287065800785",
 
   /**
-   * The NHCarrigan community Discord server ID.
+   * The SpellWare community Discord server ID.
    */
   guildId: "1354624415861833870",
 } as const;

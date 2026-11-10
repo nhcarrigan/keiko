@@ -5,7 +5,7 @@
  */
 
 /**
- * Channel IDs for the NHCarrigan community server.
+ * Channel IDs for the SpellWare community server.
  */
 export const channelConfig = {
 
